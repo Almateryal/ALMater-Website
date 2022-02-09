@@ -359,7 +359,7 @@
       </div>
       <div class="row justify-content-center">
         <div class="col-lg-8 mb-5" data-aos="fade-up" data-aos-delay="100">
-          <form id="gform" action="https://script.google.com/macros/s/AKfycbyJ1kqcuqpIGMJ0TuP_3KRQ8cllUXeM452ou90hNKLWnpMpn1osENZGRz-egMPureIC/exec" method="post">
+          <form id="submit-form">
             <div class="form-group row">
               <div class="col-md-6 mb-4 mb-lg-0">
                 <input type="text" class="form-control" placeholder="First name" name="first_name">
@@ -403,6 +403,32 @@
     <script src="js/main.js"></script>
 
 
+    <script>
+      $("#submit-form").submit((e)=>{
+          e.preventDefault()
+          $("#sent-msg").val("Sending Message")
+          $("#sent-msg").attr("disabled", true)
+          $.ajax({
+              url:"https://script.google.com/macros/s/AKfycbyJ1kqcuqpIGMJ0TuP_3KRQ8cllUXeM452ou90hNKLWnpMpn1osENZGRz-egMPureIC/exec",
+              data:$("#submit-form").serialize(),
+              method:"post",
+              success:function (response){
+                $("#sent-msg").val("Sent Successfully")
+                $("#sent-msg").removeAttr("disabled");
+              
+                $("#submit-form").trigger('reset');
+                   alert("Message Sent Successfully")
+                  
+                  // window.location.reload()
+                  //window.location.href="https://google.com"
+              },
+              error:function (err){
+                  alert("Something Error")
+  
+              }
+          })
+      })
+  </script>
 
 
 </body>
